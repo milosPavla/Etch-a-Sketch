@@ -4,7 +4,7 @@ function paint() {  // Adds color of square on mouse hover
 
 const container = document.querySelector('.container');
 
-for(let i = 0; i < 16; i ++) {   // Outter FOR, creating rows
+for(let i = 0; i < 16; i ++) {   // Outer FOR, creating rows
     let row = document.createElement('row');
     row.style.display = 'flex';
     container.appendChild(row);
