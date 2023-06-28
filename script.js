@@ -1,21 +1,53 @@
-function paint() {  // Adds color of square on mouse hover
+function paint() {  // Add color to square 
     this.style.backgroundColor = 'black';
 }
 
-const container = document.querySelector('.container');
+function sizePrompt() {  // Clear the grid, ask for new number, calculate size of square, create the grid again
+    removeGrid();
 
-for(let i = 0; i < 16; i ++) {   // Outer FOR, creating rows
-    let row = document.createElement('row');
-    row.style.display = 'flex';
-    container.appendChild(row);
+    do {  // Make sure that input is in appropriate range
+        countOneSide = prompt('Enter the number of squares on one side of the grid (MAX: 100): ');
+    } while (countOneSide > 100);
+    
+    squareSize = container.offsetWidth / countOneSide;  // Set size of square which depends on number of squares and container width
 
-    for(let j = 0; j < 16; j ++) {  // Inner FOR, creating 16 squares for every i iteration (row)
-        let square = document.createElement('div');
-        square.style.height = '35px';
-        square.style.width = '35px';
-        square.style.backgroundColor = '#fff';
-        square.style.margin = '1px';
-        square.addEventListener('mouseover', paint);  // Adds paint function listener on mouseover
-        row.appendChild(square);
+    createGrid();
+}
+
+function createGrid() {
+    for(let i = 0; i < countOneSide; i ++) {   // Outer FOR, create rows
+        let row = document.createElement('row');
+        row.style.display = 'flex';
+        container.appendChild(row);
+    
+        for(let j = 0; j < countOneSide; j ++) {  // Inner FOR, create certain number of squares for every iteration (row)
+            let square = document.createElement('div');
+            square.style.height = `${squareSize}px`;
+            square.style.width = `${squareSize}px`;
+            square.style.backgroundColor = '#fff';
+            square.addEventListener('mouseover', paint);  // Add paint function listener on mouse hover
+            row.appendChild(square);
+        }
     }
 }
+
+function removeGrid() {  // Clear the grid
+    container.innerHTML = "";
+}
+
+document.querySelector('.size-btn').addEventListener('click', sizePrompt);
+const container = document.querySelector('.container');
+
+let countOneSide = 16;  // Initial size of grid and its creation
+let squareSize = container.offsetWidth / countOneSide;
+createGrid();  
+
+
+
+
+
+
+
+
+
+
